@@ -1,0 +1,8 @@
+**/bin/
+**/obj/
+**/.build/
+**/dist/
+*.user
+.DS_Store
+SwitchSound.exe
+_archive_python_prototype/
