@@ -115,7 +115,9 @@ struct SwitchSoundApp: App {
             Button("Switch to next output") { model.cycleOutput() }
             Button("Show SwitchSound") {
                 NSApplication.shared.activate(ignoringOtherApps: true)
-                NSApplication.shared.windows.first?.makeKeyAndOrderFront(nil)
+                NSApplication.shared.windows
+                    .first(where: { $0.title == "SwitchSound" })?
+                    .makeKeyAndOrderFront(nil)
             }
             Divider()
             Button("Quit") { NSApplication.shared.terminate(nil) }
