@@ -39,7 +39,13 @@ jobs:
           lipo -info native/macos/dist/SwitchSound.app/Contents/MacOS/SwitchSound
           codesign --verify --deep --strict native/macos/dist/SwitchSound.app
       - name: Package macOS app
-        run: ditto -c -k --keepParent native/macos/dist/SwitchSound.app SwitchSound-macOS-universal.zip
+        run: |
+          mkdir SwitchSound-macOS
+          ditto native/macos/dist/SwitchSound.app SwitchSound-macOS/SwitchSound.app
+          cp prepare-macos.sh SwitchSound-macOS/prepare-macos.sh
+          chmod +x SwitchSound-macOS/prepare-macos.sh
+          sh -n SwitchSound-macOS/prepare-macos.sh
+          ditto -c -k --sequesterRsrc --keepParent SwitchSound-macOS SwitchSound-macOS-universal.zip
       - uses: actions/upload-artifact@v4
         with:
           name: macos
